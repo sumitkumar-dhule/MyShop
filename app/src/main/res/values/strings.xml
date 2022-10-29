@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MyShop</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="beer_list_fragment_label">Beers</string>
+    <string name="beer_detail_fragment_label">Beer Details</string>
+    <string name="beer_brand_image">Beer Brand Image</string>
+</resources>

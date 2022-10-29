@@ -1,0 +1,70 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-parcelize'
+//apply plugin: 'kotlin-android-extensions'
+apply plugin: 'dagger.hilt.android.plugin'
+
+android {
+    compileSdk ProjectConfig.compileSdk
+
+    defaultConfig {
+        minSdk ProjectConfig.minSdk
+        targetSdk ProjectConfig.targetSdk
+        versionCode ProjectConfig.versionCode
+        versionName ProjectConfig.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        dataBinding true
+    }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    // Dagger
+    implementation DaggerHilt.hiltAndroid
+    kapt DaggerHilt.hiltCompiler
+
+    // Retrofit
+    implementation Retrofit.retrofit
+    implementation Retrofit.gsonConverter
+    implementation Retrofit.okHttpLoggingInterceptor
+
+    implementation AndroidX.coreKtx
+    implementation AndroidX.appCompat
+    implementation Google.material
+
+    // Coroutine Lifecycle Scopes
+    implementation AndroidX.lifecycleViewmodel
+    implementation AndroidX.lifecycleRuntime
+
+    testImplementation Testing.junit
+    testImplementation Testing.mockitokotlin
+    testImplementation Testing.mockitoCore
+    testImplementation Testing.coroutinesTest
+
+    androidTestImplementation Testing.junitExt
+    androidTestImplementation Testing.espresso
+    androidTestImplementation Testing.mockitoCore
+
+}
