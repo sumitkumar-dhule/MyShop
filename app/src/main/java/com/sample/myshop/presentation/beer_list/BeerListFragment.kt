@@ -13,6 +13,10 @@ import com.sample.common.Constants
 import com.sample.myshop.databinding.FragmentBeerListBinding
 import com.sample.myshop.presentation.adapter.BeerAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import io.branch.indexing.BranchUniversalObject
+import io.branch.referral.util.BRANCH_STANDARD_EVENT
+import io.branch.referral.util.BranchEvent
+import io.branch.referral.util.ContentMetadata
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
@@ -42,6 +46,18 @@ class BeerListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         beerAdapter.setOnItemClickListener {
+
+            val buo = BranchUniversalObject()
+                .setCanonicalIdentifier("beers/${it.id}")
+                .setTitle(it.name)
+                .setContentDescription(it.tagline)
+                .setContentImageUrl(it.imageUrl)
+                .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
+                .setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
+                .setContentMetadata(ContentMetadata().addCustomMetadata("name", it.name))
+
+            BranchEvent(BRANCH_STANDARD_EVENT.VIEW_ITEM).addContentItems(buo).logEvent(context)
+
             val bundle = Bundle().apply {
                 putString(Constants.PARAM_BEER_ID, it.id.toString())
             }
