@@ -49,12 +49,12 @@ class BeerListFragment : Fragment() {
 
             val buo = BranchUniversalObject()
                 .setCanonicalIdentifier("beers/${it.id}")
-                .setTitle(it.name)
-                .setContentDescription(it.tagline)
-                .setContentImageUrl(it.imageUrl)
+                .setTitle(it.title)
+                .setContentDescription(it.category)
+                .setContentImageUrl(it.image)
                 .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
                 .setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
-                .setContentMetadata(ContentMetadata().addCustomMetadata("name", it.name))
+                .setContentMetadata(ContentMetadata().addCustomMetadata("product", it.title))
 
             BranchEvent(BRANCH_STANDARD_EVENT.VIEW_ITEM).addContentItems(buo).logEvent(context)
 

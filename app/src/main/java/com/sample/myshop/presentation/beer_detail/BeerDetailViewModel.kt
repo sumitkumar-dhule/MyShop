@@ -19,8 +19,8 @@ class BeerDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(BeerDetailState())
-    val state: StateFlow<BeerDetailState> = _state
+    private val _state = MutableStateFlow(ProductState())
+    val state: StateFlow<ProductState> = _state
 
     init {
         savedStateHandle.get<String>(Constants.PARAM_BEER_ID)?.let { coinId ->
@@ -32,15 +32,15 @@ class BeerDetailViewModel @Inject constructor(
         getBeerDetailsUseCase(beerID).onEach { result ->
             when (result) {
                 is Resource.Success -> {
-                    _state.value = BeerDetailState(beer = result.data)
+                    _state.value = ProductState(beer = result.data)
                 }
                 is Resource.Error -> {
-                    _state.value = BeerDetailState(
+                    _state.value = ProductState(
                         error = result.message ?: "An unexpected error occured"
                     )
                 }
                 is Resource.Loading -> {
-                    _state.value = BeerDetailState(isLoading = true)
+                    _state.value = ProductState(isLoading = true)
                 }
             }
         }.launchIn(viewModelScope)

@@ -2,6 +2,7 @@ package com.sample.domain.use_case
 
 import com.sample.common.Resource
 import com.sample.domain.model.Beer
+import com.sample.domain.model.Product
 import com.sample.domain.repository.BeerRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -12,7 +13,7 @@ import javax.inject.Inject
 internal class GetBeersUseCaseImpl @Inject constructor(private val repository: BeerRepository) :
     GetBeersUseCase {
 
-    override operator fun invoke(): Flow<Resource<List<Beer>>> = flow {
+    override operator fun invoke(): Flow<Resource<List<Product>>> = flow {
         try {
             emit(Resource.Loading())
             val beers = repository.getBeers()

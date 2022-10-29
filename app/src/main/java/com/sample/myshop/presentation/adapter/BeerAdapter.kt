@@ -7,15 +7,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sample.myshop.databinding.ItemBeerBinding
 import com.sample.domain.model.Beer
+import com.sample.domain.model.Product
 
 class BeerAdapter : RecyclerView.Adapter<BeerAdapter.BeerViewHolder>() {
 
-    private val differCallback = object : DiffUtil.ItemCallback<Beer>() {
-        override fun areItemsTheSame(oldItem: Beer, newItem: Beer): Boolean {
-            return oldItem.imageUrl == newItem.imageUrl
+    private val differCallback = object : DiffUtil.ItemCallback<Product>() {
+        override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
+            return oldItem.image == newItem.image
         }
 
-        override fun areContentsTheSame(oldItem: Beer, newItem: Beer): Boolean {
+        override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
             return oldItem == newItem
         }
     }
@@ -32,7 +33,7 @@ class BeerAdapter : RecyclerView.Adapter<BeerAdapter.BeerViewHolder>() {
         return differ.currentList.size
     }
 
-    private var onItemClickListener: ((Beer) -> Unit)? = null
+    private var onItemClickListener: ((Product) -> Unit)? = null
 
     override fun onBindViewHolder(holder: BeerViewHolder, position: Int) {
         val article = differ.currentList[position]
@@ -46,13 +47,13 @@ class BeerAdapter : RecyclerView.Adapter<BeerAdapter.BeerViewHolder>() {
 
     }
 
-    fun setOnItemClickListener(listener: (Beer) -> Unit) {
+    fun setOnItemClickListener(listener: (Product) -> Unit) {
         onItemClickListener = listener
     }
 
     class BeerViewHolder(private val binding: ItemBeerBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindArticle(item: Beer) {
+        fun bindArticle(item: Product) {
             binding.beer = item
             binding.executePendingBindings()
         }
