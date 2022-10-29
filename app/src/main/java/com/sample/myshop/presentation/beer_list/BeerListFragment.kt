@@ -17,6 +17,7 @@ import io.branch.indexing.BranchUniversalObject
 import io.branch.referral.util.BRANCH_STANDARD_EVENT
 import io.branch.referral.util.BranchEvent
 import io.branch.referral.util.ContentMetadata
+import io.branch.referral.util.CurrencyType
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
@@ -48,13 +49,28 @@ class BeerListFragment : Fragment() {
         beerAdapter.setOnItemClickListener {
 
             val buo = BranchUniversalObject()
-                .setCanonicalIdentifier("beers/${it.id}")
+                .setCanonicalIdentifier("${it.id}")
+                .setCanonicalUrl("${Constants.BASE_URL}product/${it.id}")
                 .setTitle(it.title)
                 .setContentDescription(it.category)
                 .setContentImageUrl(it.image)
                 .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
                 .setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
                 .setContentMetadata(ContentMetadata().addCustomMetadata("product", it.title))
+                .setContentMetadata(
+                    ContentMetadata().setPrice(
+                        it.price.toDouble(),
+                        CurrencyType.USD
+                    )
+                )
+                .setContentMetadata(
+                    ContentMetadata().setRating(
+                        it.rating.count.toDouble(),
+                        null,
+                        5.0,
+                        it.rating.count
+                    )
+                )
 
             BranchEvent(BRANCH_STANDARD_EVENT.VIEW_ITEM).addContentItems(buo).logEvent(context)
 
