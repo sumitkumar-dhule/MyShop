@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="beer"
+            name="product"
             type="com.sample.domain.model.Product" />
     </data>
 
@@ -20,8 +20,8 @@
             android:layout_height="90dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:urlToImage="@{beer.image}"
-            android:contentDescription="@string/beer_brand_image"/>
+            app:urlToImage="@{product.image}"
+            android:contentDescription="@string/product_brand_image"/>
 
         <TextView
             android:id="@+id/tvName"
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:ellipsize="end"
-            android:text="@{beer.title}"
+            android:text="@{product.title}"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="@android:color/black"
             android:textStyle="bold"
@@ -44,6 +44,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="$"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/ivArticleImage"
             app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
@@ -54,23 +56,57 @@
             android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="4"
-            android:text="@{beer.price}"
+            android:text="@{product.price}"
             android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/tvName" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="8dp"
+            android:text="Add To Cart"
+            app:layout_constraintBottom_toTopOf="@+id/view"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginStart="2dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:background="#AFA9A9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="Rating"
+            android:stepSize="0.5"
+            android:progressTint="@color/design_default_color_primary_variant"
+            android:rating="@{product.rating.rate}"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivArticleImage" />
+
+        <Button
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="8dp"
+            android:text="Share"
+            app:layout_constraintBottom_toTopOf="@+id/view"
+            app:layout_constraintEnd_toStartOf="@+id/button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

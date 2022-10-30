@@ -48,7 +48,7 @@
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_marginTop="16dp"
-            android:contentDescription="@string/beer_brand_image"
+            android:contentDescription="@string/product_brand_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"

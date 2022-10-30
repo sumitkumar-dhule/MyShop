@@ -20,6 +20,6 @@ internal fun ProductDto.toProduct(): Product {
 internal fun RatingDto.toRating(): Rating {
     return Rating(
         count = count,
-        rate = rate
+        rate = rate.toFloat()
     )
 }

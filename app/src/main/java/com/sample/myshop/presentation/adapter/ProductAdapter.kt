@@ -53,7 +53,7 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.BeerViewHolder>() {
     class BeerViewHolder(private val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindArticle(item: Product) {
-            binding.beer = item
+            binding.product = item
             binding.executePendingBindings()
         }
     }
