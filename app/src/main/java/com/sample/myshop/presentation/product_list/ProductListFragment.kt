@@ -16,7 +16,6 @@ import com.sample.myshop.presentation.adapter.ProductAdapter
 import com.sample.myshop.presentation.util.BranchHelperUtil
 import dagger.hilt.android.AndroidEntryPoint
 import io.branch.referral.Branch
-import io.branch.referral.BranchError
 import io.branch.referral.util.BRANCH_STANDARD_EVENT
 import kotlinx.coroutines.flow.collect
 import org.json.JSONObject
@@ -82,42 +81,35 @@ class ProductListFragment : Fragment() {
 
         activity?.let {
             // listener (within Main Activity's onStart)
-            Branch.sessionBuilder(it).withCallback(object : Branch.BranchReferralInitListener {
-                override fun onInitFinished(referringParams: JSONObject?, error: BranchError?) {
-                    if (error == null) {
+            Branch.sessionBuilder(it).withCallback { referringParams, error ->
+                if (error == null) {
 
-                        // option 1: log data
-                        Log.d("BRANCH SDK", referringParams.toString())
+                    // option 1: log data
+                    Log.d("BRANCH SDK", referringParams.toString())
 
-                        referringParams?.let {
-                            val jsonObject: JSONObject = referringParams
-                            val branchLinkClicked = jsonObject.getBoolean("+clicked_branch_link")
-                            val productId: String? = jsonObject.getString("PARAM_PRODUCT_ID")
+                    referringParams?.let {
+                        val jsonObject: JSONObject = referringParams
+                        val branchLinkClicked = jsonObject.getBoolean("+clicked_branch_link")
+                        val productId: String? = jsonObject.getString("PARAM_PRODUCT_ID")
 
-                            productId?.let {
-                                if (branchLinkClicked && productId.isNotBlank()) {
-                                    // option 3: navigate to page
-                                    val bundle = Bundle().apply {
-                                        putString(Constants.PARAM_PRODUCT_ID, productId)
-                                    }
-
-                                    findNavController().navigate(
-                                        R.id.action_FirstFragment_to_SecondFragment,
-                                        bundle
-                                    )
+                        productId?.let {
+                            if (branchLinkClicked && productId.isNotBlank()) {
+                                // option 3: navigate to page
+                                val bundle = Bundle().apply {
+                                    putString(Constants.PARAM_PRODUCT_ID, productId)
                                 }
-                            }
 
-/*
-                            // display data
-                            Toast.makeText(context, referringParams.toString(), Toast.LENGTH_SHORT)
-                                .show()*/
+                                findNavController().navigate(
+                                    R.id.action_FirstFragment_to_SecondFragment,
+                                    bundle
+                                )
+                            }
                         }
-                    } else {
-                        Log.e("BRANCH SDK", error.message)
                     }
+                } else {
+                    Log.e("BRANCH SDK", error.message)
                 }
-            }).withData(it.intent.data).init()
+            }.withData(it.intent.data).init()
         }
 
     }
