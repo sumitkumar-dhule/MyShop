@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.sample.myshop.R
 import com.sample.common.Constants
 import com.sample.myshop.databinding.FragmentBeerListBinding
-import com.sample.myshop.presentation.adapter.BeerAdapter
+import com.sample.myshop.presentation.adapter.ProductAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import io.branch.indexing.BranchUniversalObject
 import io.branch.referral.util.BRANCH_STANDARD_EVENT
@@ -21,10 +21,10 @@ import io.branch.referral.util.CurrencyType
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
-class BeerListFragment : Fragment() {
+class ProductListFragment : Fragment() {
 
-    private val viewModel by viewModels<BeerListViewModel>()
-    private lateinit var beerAdapter: BeerAdapter
+    private val viewModel by viewModels<ProductListViewModel>()
+    private lateinit var productAdapter: ProductAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,8 +37,8 @@ class BeerListFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        beerAdapter = BeerAdapter()
-        binding.rvBeers.adapter = beerAdapter
+        productAdapter = ProductAdapter()
+        binding.rvBeers.adapter = productAdapter
 
         return binding.root
     }
@@ -46,7 +46,7 @@ class BeerListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        beerAdapter.setOnItemClickListener {
+        productAdapter.setOnItemClickListener {
 
             val buo = BranchUniversalObject()
                 .setCanonicalIdentifier("${it.id}")
@@ -86,10 +86,10 @@ class BeerListFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
 
-            viewModel.state.collect { value: BeerListState ->
+            viewModel.state.collect { value: ProductListState ->
 
                 value.beers.let {
-                    beerAdapter.differ.submitList(it)
+                    productAdapter.differ.submitList(it)
                 }
             }
         }

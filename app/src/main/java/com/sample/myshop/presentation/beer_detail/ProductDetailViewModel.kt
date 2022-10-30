@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class BeerDetailViewModel @Inject constructor(
+class ProductDetailViewModel @Inject constructor(
     private val getProductDetailsUseCase: GetProductDetailsUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {

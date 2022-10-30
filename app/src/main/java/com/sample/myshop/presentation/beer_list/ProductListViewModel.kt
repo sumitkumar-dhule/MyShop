@@ -12,12 +12,12 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class BeerListViewModel @Inject constructor(
+class ProductListViewModel @Inject constructor(
     private val getProductsUseCase: GetProductsUseCase
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(BeerListState())
-    val state: StateFlow<BeerListState> = _state
+    private val _state = MutableStateFlow(ProductListState())
+    val state: StateFlow<ProductListState> = _state
 
     init {
         getBeers()
@@ -27,15 +27,15 @@ class BeerListViewModel @Inject constructor(
         getProductsUseCase().onEach { result ->
             when (result) {
                 is Resource.Success -> {
-                    _state.value = BeerListState(beers = result.data ?: emptyList())
+                    _state.value = ProductListState(beers = result.data ?: emptyList())
                 }
                 is Resource.Error -> {
-                    _state.value = BeerListState(
+                    _state.value = ProductListState(
                         error = result.message ?: "An unexpected error occured"
                     )
                 }
                 is Resource.Loading -> {
-                    _state.value = BeerListState(isLoading = true)
+                    _state.value = ProductListState(isLoading = true)
                 }
             }
         }.launchIn(viewModelScope)

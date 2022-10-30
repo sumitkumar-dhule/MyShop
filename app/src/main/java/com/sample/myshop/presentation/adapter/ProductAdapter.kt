@@ -6,10 +6,9 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sample.myshop.databinding.ItemBeerBinding
-import com.sample.domain.model.Beer
 import com.sample.domain.model.Product
 
-class BeerAdapter : RecyclerView.Adapter<BeerAdapter.BeerViewHolder>() {
+class ProductAdapter : RecyclerView.Adapter<ProductAdapter.BeerViewHolder>() {
 
     private val differCallback = object : DiffUtil.ItemCallback<Product>() {
         override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {

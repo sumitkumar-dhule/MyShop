@@ -10,9 +10,9 @@ import com.sample.myshop.databinding.FragmentBeerDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class BeerDetailFragment : Fragment() {
+class ProductDetailFragment : Fragment() {
 
-    private val viewModel by viewModels<BeerDetailViewModel>()
+    private val viewModel by viewModels<ProductDetailViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

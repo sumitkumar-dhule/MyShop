@@ -6,13 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.sample.myshop.presentation.beer_list.BeerListViewModel" />
+            type="com.sample.myshop.presentation.beer_list.ProductListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.beer_list.BeerListFragment">
+        tools:context=".presentation.beer_list.ProductListFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvBeers"
