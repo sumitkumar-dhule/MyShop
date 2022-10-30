@@ -40,7 +40,7 @@ class ProductDetailViewModel @Inject constructor(
                 }
                 is Resource.Error -> {
                     _state.value = ProductState(
-                        error = result.message ?: "An unexpected error occured"
+                        error = result.message ?: "An unexpected error occurred"
                     )
                 }
                 is Resource.Loading -> {

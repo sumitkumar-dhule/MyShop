@@ -80,7 +80,6 @@ class ProductListFragment : Fragment() {
         super.onStart()
 
         activity?.let {
-            // listener (within Main Activity's onStart)
             Branch.sessionBuilder(it).withCallback { referringParams, error ->
                 if (error == null) {
 
