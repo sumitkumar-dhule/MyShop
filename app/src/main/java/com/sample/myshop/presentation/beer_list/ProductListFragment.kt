@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.sample.myshop.R
 import com.sample.common.Constants
-import com.sample.myshop.databinding.FragmentBeerListBinding
+import com.sample.myshop.databinding.FragmentProductListBinding
 import com.sample.myshop.presentation.adapter.ProductAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import io.branch.indexing.BranchUniversalObject
@@ -32,7 +32,7 @@ class ProductListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val binding = FragmentBeerListBinding.inflate(inflater)
+        val binding = FragmentProductListBinding.inflate(inflater)
 
         binding.lifecycleOwner = this
         binding.viewModel = viewModel

@@ -9,7 +9,7 @@
         android:id="@+id/FirstFragment"
         android:name="com.sample.myshop.presentation.beer_list.ProductListFragment"
         android:label="@string/beer_list_fragment_label"
-        tools:layout="@layout/fragment_beer_list">
+        tools:layout="@layout/fragment_product_list">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
@@ -19,7 +19,7 @@
         android:id="@+id/SecondFragment"
         android:name="com.sample.myshop.presentation.beer_detail.ProductDetailFragment"
         android:label="@string/beer_detail_fragment_label"
-        tools:layout="@layout/fragment_beer_detail">
+        tools:layout="@layout/fragment_product_detail">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.sample.myshop.databinding.ItemBeerBinding
+import com.sample.myshop.databinding.ItemProductBinding
 import com.sample.domain.model.Product
 
 class ProductAdapter : RecyclerView.Adapter<ProductAdapter.BeerViewHolder>() {
@@ -24,7 +24,7 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.BeerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeerViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = ItemBeerBinding.inflate(layoutInflater, parent, false)
+        val binding = ItemProductBinding.inflate(layoutInflater, parent, false)
         return BeerViewHolder(binding)
     }
 
@@ -50,7 +50,7 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.BeerViewHolder>() {
         onItemClickListener = listener
     }
 
-    class BeerViewHolder(private val binding: ItemBeerBinding) :
+    class BeerViewHolder(private val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindArticle(item: Product) {
             binding.beer = item

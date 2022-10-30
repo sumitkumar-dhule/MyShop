@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.sample.myshop.databinding.FragmentBeerDetailBinding
+import com.sample.myshop.databinding.FragmentProductDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,7 +20,7 @@ class ProductDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val binding = FragmentBeerDetailBinding.inflate(inflater)
+        val binding = FragmentProductDetailBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
