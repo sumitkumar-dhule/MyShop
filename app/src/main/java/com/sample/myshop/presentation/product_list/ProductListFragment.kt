@@ -12,13 +12,9 @@ import com.sample.myshop.R
 import com.sample.common.Constants
 import com.sample.myshop.databinding.FragmentProductListBinding
 import com.sample.myshop.presentation.adapter.ProductAdapter
-import com.sample.myshop.presentation.util.BranchEventLoggerUtil
+import com.sample.myshop.presentation.util.BranchHelperUtil
 import dagger.hilt.android.AndroidEntryPoint
-import io.branch.indexing.BranchUniversalObject
 import io.branch.referral.util.BRANCH_STANDARD_EVENT
-import io.branch.referral.util.BranchEvent
-import io.branch.referral.util.ContentMetadata
-import io.branch.referral.util.CurrencyType
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
@@ -50,9 +46,9 @@ class ProductListFragment : Fragment() {
         productAdapter.setOnItemClickListener { product ->
 
             context?.let { context ->
-                val branchEventLoggerUtil = BranchEventLoggerUtil(context)
+                val branchHelperUtil = BranchHelperUtil(context)
 
-                branchEventLoggerUtil.logEvent(
+                branchHelperUtil.logEvent(
                     context,
                     product,
                     BRANCH_STANDARD_EVENT.VIEW_ITEM

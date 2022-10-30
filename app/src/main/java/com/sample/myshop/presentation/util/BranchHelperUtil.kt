@@ -1,14 +1,24 @@
 package com.sample.myshop.presentation.util
 
+import android.R
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.util.Log
+import androidx.core.content.ContextCompat.startActivity
 import com.sample.common.Constants
 import com.sample.domain.model.Product
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.branch.indexing.BranchUniversalObject
+import io.branch.referral.Branch
+import io.branch.referral.Branch.BranchLinkCreateListener
+import io.branch.referral.BranchError
+import io.branch.referral.SharingHelper
 import io.branch.referral.util.*
 import javax.inject.Inject
 
-class BranchEventLoggerUtil @Inject constructor(
+
+class BranchHelperUtil @Inject constructor(
     @ApplicationContext val context: Context
 ) {
 
@@ -92,12 +102,89 @@ class BranchEventLoggerUtil @Inject constructor(
             )
             .setContentMetadata(
                 ContentMetadata().setRating(
-                    product.rating.count.toDouble(),
+                    product.rating.rate.toDouble(),
                     null,
                     5.0,
                     product.rating.count
                 )
             )
+    }
+
+    fun shareOwnWay(context: Context, product: Product) {
+
+        val buo = getBranchUniversalObject(product)
+
+        var linkProperties = LinkProperties()
+            .setChannel("whatsapp")
+            .setFeature("sharing")
+            .setCampaign("content 123 launch")
+            .setStage("new user")
+            .addControlParameter("desktop_url", buo.canonicalUrl)
+            .addControlParameter("custom", "data")
+
+        buo.generateShortUrl(context, linkProperties,
+            BranchLinkCreateListener { url, error ->
+                if (error == null) {
+                    Log.i("MyApp", "got my Branch link to share: $url")
+
+                    Intent().apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT, url)
+                        type = "text/plain"
+                    }.also {
+                        startActivity(context, Intent.createChooser(it, "Share to"), null)
+                    }
+                }
+            })
+    }
+
+    fun shareWithBranchShareSheet(context: Context, product: Product) {
+
+        val buo = getBranchUniversalObject(product)
+
+        var lp = LinkProperties()
+            .setChannel("facebook")
+            .setFeature("sharing")
+            .setCampaign("content 123 launch")
+            .setStage("new user")
+            .addControlParameter("desktop_url", buo.canonicalUrl)
+            .addControlParameter("custom", "data")
+
+        val ss = ShareSheetStyle(context, "Check this out!", "This stuff is awesome: ")
+
+            .setCopyUrlStyle(
+                context.resources.getDrawable(R.drawable.ic_menu_send),
+                "Copy",
+                "Added to clipboard"
+            )
+            .setMoreOptionStyle(
+                context.resources.getDrawable(R.drawable.ic_menu_search),
+                "Show more"
+            )
+
+//            .setCopyUrlStyle(context.resources.getDrawable(this, android.R.drawable.ic_menu_send), "Copy", "Added to clipboard")
+//            .setMoreOptionStyle(context.resources.getDrawable(this, android.R.drawable.ic_menu_search), "Show more")
+
+            .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK)
+            .addPreferredSharingOption(SharingHelper.SHARE_WITH.EMAIL)
+            .addPreferredSharingOption(SharingHelper.SHARE_WITH.MESSAGE)
+            .addPreferredSharingOption(SharingHelper.SHARE_WITH.HANGOUT)
+            .setAsFullWidthStyle(true)
+            .setSharingTitle("Share With")
+
+        buo.showShareSheet(context as Activity, lp, ss, object : Branch.BranchLinkShareListener {
+            override fun onShareLinkDialogLaunched() {}
+            override fun onShareLinkDialogDismissed() {}
+            override fun onLinkShareResponse(
+                sharedLink: String?,
+                sharedChannel: String?,
+                error: BranchError?
+            ) {
+            }
+
+            override fun onChannelSelected(channelName: String) {}
+        })
+
     }
 
 

@@ -1,13 +1,12 @@
 package com.sample.myshop.presentation.product_detail
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sample.common.Constants
 import com.sample.common.Resource
 import com.sample.domain.use_case.GetProductDetailsUseCase
-import com.sample.myshop.presentation.util.BranchEventLoggerUtil
+import com.sample.myshop.presentation.util.BranchHelperUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.branch.referral.util.BRANCH_STANDARD_EVENT
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,11 +15,12 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
+
 @HiltViewModel
 class ProductDetailViewModel @Inject constructor(
     private val getProductDetailsUseCase: GetProductDetailsUseCase,
     private val savedStateHandle: SavedStateHandle,
-    private val branchEventLoggerUtil: BranchEventLoggerUtil
+    private val branchHelperUtil: BranchHelperUtil
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(ProductState())
@@ -50,17 +50,22 @@ class ProductDetailViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
+
+    fun shareWithShareSheet() {
+//        _state.value.beer?.let {
+//            branchHelperUtil.shareOwnWay(it)
+//        }
+    }
+
     fun logCommerceEventAddToCart() {
         _state.value.beer?.let {
-            branchEventLoggerUtil.logCommerceEventAddToCart(it)
+            branchHelperUtil.logCommerceEventAddToCart(it)
         }
     }
 
     fun logContentEventRate() {
-
-//        Log.i("Testing", "BRANCH_STANDARD_EVENT.RATE")
         _state.value.beer?.let {
-            branchEventLoggerUtil.logEvent(it, BRANCH_STANDARD_EVENT.RATE)
+            branchHelperUtil.logEvent(it, BRANCH_STANDARD_EVENT.RATE)
         }
     }
 
