@@ -100,6 +100,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:text="Add to Cart"
+                        android:onClick="@{ ()-> viewModel.logCommerceEventAddToCart() }"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvBeerDescription" />

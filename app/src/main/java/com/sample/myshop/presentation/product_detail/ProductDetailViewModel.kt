@@ -1,12 +1,16 @@
 package com.sample.myshop.presentation.product_detail
 
+import android.util.Log
+import android.util.StatsLog.logEvent
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sample.common.Constants
 import com.sample.common.Resource
 import com.sample.domain.use_case.GetProductDetailsUseCase
+import com.sample.myshop.presentation.util.BranchEventLoggerUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.branch.referral.util.BRANCH_STANDARD_EVENT
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -16,7 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductDetailViewModel @Inject constructor(
     private val getProductDetailsUseCase: GetProductDetailsUseCase,
-    savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
+    private val branchEventLoggerUtil: BranchEventLoggerUtil
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(ProductState())
@@ -45,4 +50,16 @@ class ProductDetailViewModel @Inject constructor(
             }
         }.launchIn(viewModelScope)
     }
+
+    fun logCommerceEventAddToCart() {
+
+        Log.i("Testing", "BRANCH_STANDARD_EVENT.ADD_TO_CART")
+        _state.value.beer?.let {
+            branchEventLoggerUtil.logEvent(
+                it,
+                BRANCH_STANDARD_EVENT.ADD_TO_CART
+            )
+        }
+    }
+
 }
