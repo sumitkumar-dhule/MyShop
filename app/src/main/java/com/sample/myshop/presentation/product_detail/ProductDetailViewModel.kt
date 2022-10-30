@@ -1,7 +1,6 @@
 package com.sample.myshop.presentation.product_detail
 
 import android.util.Log
-import android.util.StatsLog.logEvent
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -52,13 +51,16 @@ class ProductDetailViewModel @Inject constructor(
     }
 
     fun logCommerceEventAddToCart() {
-
-        Log.i("Testing", "BRANCH_STANDARD_EVENT.ADD_TO_CART")
         _state.value.beer?.let {
-            branchEventLoggerUtil.logEvent(
-                it,
-                BRANCH_STANDARD_EVENT.ADD_TO_CART
-            )
+            branchEventLoggerUtil.logCommerceEventAddToCart(it)
+        }
+    }
+
+    fun logContentEventRate() {
+
+//        Log.i("Testing", "BRANCH_STANDARD_EVENT.RATE")
+        _state.value.beer?.let {
+            branchEventLoggerUtil.logEvent(it, BRANCH_STANDARD_EVENT.RATE)
         }
     }
 

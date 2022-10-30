@@ -111,7 +111,7 @@
                         android:layout_height="wrap_content"
                         android:contentDescription="Rating"
                         android:progressTint="@color/design_default_color_primary_variant"
-                        android:rating="@{viewModel.state.beer.rating.rate}"
+                        android:onRatingChanged="@{ ()-> viewModel.logContentEventRate() }"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/ivBeerImage" />
