@@ -23,12 +23,12 @@ class ProductDetailViewModel @Inject constructor(
     val state: StateFlow<ProductState> = _state
 
     init {
-        savedStateHandle.get<String>(Constants.PARAM_PRODUCT_ID)?.let { coinId ->
-            getBeer(coinId)
+        savedStateHandle.get<String>(Constants.PARAM_PRODUCT_ID)?.let { productId ->
+            getProduct(productId)
         }
     }
 
-    fun getBeer(beerID: String) {
+    fun getProduct(beerID: String) {
         getProductDetailsUseCase(beerID).onEach { result ->
             when (result) {
                 is Resource.Success -> {

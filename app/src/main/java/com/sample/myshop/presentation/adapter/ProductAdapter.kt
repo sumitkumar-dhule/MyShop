@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sample.myshop.databinding.ItemProductBinding
 import com.sample.domain.model.Product
 
-class ProductAdapter : RecyclerView.Adapter<ProductAdapter.BeerViewHolder>() {
+class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     private val differCallback = object : DiffUtil.ItemCallback<Product>() {
         override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
@@ -22,10 +22,10 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.BeerViewHolder>() {
 
     val differ = AsyncListDiffer(this, differCallback)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeerViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ItemProductBinding.inflate(layoutInflater, parent, false)
-        return BeerViewHolder(binding)
+        return ProductViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -34,7 +34,7 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.BeerViewHolder>() {
 
     private var onItemClickListener: ((Product) -> Unit)? = null
 
-    override fun onBindViewHolder(holder: BeerViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val article = differ.currentList[position]
         holder.bindArticle(article)
 
@@ -50,7 +50,7 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.BeerViewHolder>() {
         onItemClickListener = listener
     }
 
-    class BeerViewHolder(private val binding: ItemProductBinding) :
+    class ProductViewHolder(private val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindArticle(item: Product) {
             binding.product = item
