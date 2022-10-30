@@ -1,19 +1,15 @@
 package com.sample.myshop.presentation.util
 
-import android.R
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import com.sample.common.Constants
 import com.sample.domain.model.Product
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.branch.indexing.BranchUniversalObject
-import io.branch.referral.Branch
 import io.branch.referral.Branch.BranchLinkCreateListener
-import io.branch.referral.BranchError
-import io.branch.referral.SharingHelper
 import io.branch.referral.util.*
 import javax.inject.Inject
 
@@ -25,12 +21,15 @@ class BranchHelperUtil @Inject constructor(
     fun logEvent(context: Context, product: Product, event: BRANCH_STANDARD_EVENT) {
         val buo = getBranchUniversalObject(product)
         BranchEvent(event).addContentItems(buo).logEvent(context)
+        actionToast(event)
     }
 
     fun logEvent(product: Product, event: BRANCH_STANDARD_EVENT) {
         val buo = getBranchUniversalObject(product)
         BranchEvent(event).addContentItems(buo).logEvent(context)
+        actionToast(event)
     }
+
 
     fun logCommerceEventAddToCart(product: Product) {
         val buo = BranchUniversalObject()
@@ -82,6 +81,8 @@ class BranchHelperUtil @Inject constructor(
             .setSearchQuery("Test Search query")
             .addContentItems(buo)
             .logEvent(context)
+
+        actionToast(BRANCH_STANDARD_EVENT.ADD_TO_CART)
     }
 
     fun getBranchUniversalObject(product: Product): BranchUniversalObject {
@@ -111,9 +112,7 @@ class BranchHelperUtil @Inject constructor(
     }
 
     fun shareOwnWay(context: Context, product: Product) {
-
         val buo = getBranchUniversalObject(product)
-
         BranchEvent(BRANCH_STANDARD_EVENT.SHARE).addContentItems(buo).logEvent(context)
 
         val linkProperties = LinkProperties()
@@ -123,7 +122,7 @@ class BranchHelperUtil @Inject constructor(
             .setStage("new user")
             .addControlParameter("""${'$'}android_deeplink_path""", buo.canonicalUrl)
             .addControlParameter("desktop_url", buo.canonicalUrl)
-            .addControlParameter("custom", "data")
+            .addControlParameter("PARAM_PRODUCT_ID", product.id.toString())
 
         buo.generateShortUrl(context, linkProperties,
             BranchLinkCreateListener { url, error ->
@@ -139,59 +138,26 @@ class BranchHelperUtil @Inject constructor(
                     }
                 }
             })
+
+        actionToast(BRANCH_STANDARD_EVENT.SHARE)
     }
 
-    fun shareWithBranchShareSheet(context: Context, product: Product) {
 
-        val buo = getBranchUniversalObject(product)
-
-        BranchEvent(BRANCH_STANDARD_EVENT.SHARE).addContentItems(buo).logEvent(context)
-
-        var lp = LinkProperties()
-            .setChannel("facebook")
-            .setFeature("sharing")
-            .setCampaign("content 123 launch")
-            .setStage("new user")
-            .addControlParameter("desktop_url", buo.canonicalUrl)
-            .addControlParameter("""${'$'}android_deeplink_path""", buo.canonicalUrl)
-            .addControlParameter("custom", "data")
-
-        val ss = ShareSheetStyle(context, "Check this out!", "This stuff is awesome: ")
-
-            .setCopyUrlStyle(
-                context.resources.getDrawable(R.drawable.ic_menu_send),
-                "Copy",
-                "Added to clipboard"
-            )
-            .setMoreOptionStyle(
-                context.resources.getDrawable(R.drawable.ic_menu_search),
-                "Show more"
-            )
-
-//            .setCopyUrlStyle(context.resources.getDrawable(this, android.R.drawable.ic_menu_send), "Copy", "Added to clipboard")
-//            .setMoreOptionStyle(context.resources.getDrawable(this, android.R.drawable.ic_menu_search), "Show more")
-
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK)
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.EMAIL)
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.MESSAGE)
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.HANGOUT)
-            .setAsFullWidthStyle(true)
-            .setSharingTitle("Share With")
-
-        buo.showShareSheet(context as Activity, lp, ss, object : Branch.BranchLinkShareListener {
-            override fun onShareLinkDialogLaunched() {}
-            override fun onShareLinkDialogDismissed() {}
-            override fun onLinkShareResponse(
-                sharedLink: String?,
-                sharedChannel: String?,
-                error: BranchError?
-            ) {
+    private fun actionToast(event: BRANCH_STANDARD_EVENT) {
+        when (event) {
+            BRANCH_STANDARD_EVENT.SHARE -> {
+                Toast.makeText(context, "Item Shared", Toast.LENGTH_SHORT).show()
             }
-
-            override fun onChannelSelected(channelName: String) {}
-        })
-
+            BRANCH_STANDARD_EVENT.VIEW_ITEM -> {
+                Toast.makeText(context, "Item viewed", Toast.LENGTH_SHORT).show()
+            }
+            BRANCH_STANDARD_EVENT.ADD_TO_CART -> {
+                Toast.makeText(context, "Item added to Cart", Toast.LENGTH_SHORT).show()
+            }
+            BRANCH_STANDARD_EVENT.RATE -> {
+                Toast.makeText(context, "Item Rated", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
-
 
 }

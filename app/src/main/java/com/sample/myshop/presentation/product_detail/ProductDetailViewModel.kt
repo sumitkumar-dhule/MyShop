@@ -36,7 +36,7 @@ class ProductDetailViewModel @Inject constructor(
         getProductDetailsUseCase(beerID).onEach { result ->
             when (result) {
                 is Resource.Success -> {
-                    _state.value = ProductState(beer = result.data)
+                    _state.value = ProductState(product = result.data)
                 }
                 is Resource.Error -> {
                     _state.value = ProductState(
@@ -50,21 +50,14 @@ class ProductDetailViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-
-    fun shareWithShareSheet() {
-//        _state.value.beer?.let {
-//            branchHelperUtil.shareOwnWay(it)
-//        }
-    }
-
     fun logCommerceEventAddToCart() {
-        _state.value.beer?.let {
+        _state.value.product?.let {
             branchHelperUtil.logCommerceEventAddToCart(it)
         }
     }
 
     fun logContentEventRate() {
-        _state.value.beer?.let {
+        _state.value.product?.let {
             branchHelperUtil.logEvent(it, BRANCH_STANDARD_EVENT.RATE)
         }
     }

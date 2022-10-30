@@ -40,7 +40,7 @@ class ProductDetailFragment : Fragment() {
 
                 branchHelperUtil.shareOwnWay(
                     context,
-                    viewModel.state.value.beer!!
+                    viewModel.state.value.product!!
                 )
             }
         }

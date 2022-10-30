@@ -47,7 +47,7 @@ dependencies {
     // implementation 'com.google.android.gms:play-services-ads:17.2.0'
     // optional
     // Chrome Tab matching (enables 100% guaranteed matching based on cookies)
-    implementation 'androidx.browser:browser:1.0.0'
+//    implementation 'androidx.browser:browser:1.0.0'
 
 
     implementation project(Modules.common)

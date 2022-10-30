@@ -4,6 +4,6 @@ import com.sample.domain.model.Product
 
 data class ProductListState(
     val isLoading: Boolean = false,
-    val beers: List<Product> = emptyList(),
+    val products: List<Product> = emptyList(),
     val error: String = ""
 )

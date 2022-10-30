@@ -27,7 +27,7 @@ class ProductListViewModel @Inject constructor(
         getProductsUseCase().onEach { result ->
             when (result) {
                 is Resource.Success -> {
-                    _state.value = ProductListState(beers = result.data ?: emptyList())
+                    _state.value = ProductListState(products = result.data ?: emptyList())
                 }
                 is Resource.Error -> {
                     _state.value = ProductListState(
