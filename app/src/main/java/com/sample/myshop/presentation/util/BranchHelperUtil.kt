@@ -114,11 +114,14 @@ class BranchHelperUtil @Inject constructor(
 
         val buo = getBranchUniversalObject(product)
 
-        var linkProperties = LinkProperties()
+        BranchEvent(BRANCH_STANDARD_EVENT.SHARE).addContentItems(buo).logEvent(context)
+
+        val linkProperties = LinkProperties()
             .setChannel("whatsapp")
             .setFeature("sharing")
             .setCampaign("content 123 launch")
             .setStage("new user")
+            .addControlParameter("""${'$'}android_deeplink_path""", buo.canonicalUrl)
             .addControlParameter("desktop_url", buo.canonicalUrl)
             .addControlParameter("custom", "data")
 
@@ -129,7 +132,7 @@ class BranchHelperUtil @Inject constructor(
 
                     Intent().apply {
                         action = Intent.ACTION_SEND
-                        putExtra(Intent.EXTRA_TEXT, url)
+                        putExtra(Intent.EXTRA_TEXT, "Check this out! \nThis deal is awesome: $url")
                         type = "text/plain"
                     }.also {
                         startActivity(context, Intent.createChooser(it, "Share to"), null)
@@ -142,12 +145,15 @@ class BranchHelperUtil @Inject constructor(
 
         val buo = getBranchUniversalObject(product)
 
+        BranchEvent(BRANCH_STANDARD_EVENT.SHARE).addContentItems(buo).logEvent(context)
+
         var lp = LinkProperties()
             .setChannel("facebook")
             .setFeature("sharing")
             .setCampaign("content 123 launch")
             .setStage("new user")
             .addControlParameter("desktop_url", buo.canonicalUrl)
+            .addControlParameter("""${'$'}android_deeplink_path""", buo.canonicalUrl)
             .addControlParameter("custom", "data")
 
         val ss = ShareSheetStyle(context, "Check this out!", "This stuff is awesome: ")
