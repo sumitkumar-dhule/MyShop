@@ -4,7 +4,7 @@ import com.sample.domain.model.Beer
 import com.sample.domain.model.BeerDetails
 import com.sample.domain.model.Product
 
-interface BeerRepository {
+interface ProductRepository {
 
     suspend fun getBeers(): List<Product>
 

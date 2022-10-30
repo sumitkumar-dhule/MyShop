@@ -6,12 +6,12 @@ import com.sample.data.remote.dto.ProductDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-internal interface BeerApi {
+internal interface ShopApi {
 
     @GET("products")
-    suspend fun getBeers(): List<ProductDto>
+    suspend fun getProducts(): List<ProductDto>
 
-    @GET("products/{beerId}")
-    suspend fun getBeerById(@Path("beerId") beerId: String): ProductDto
+    @GET("products/{productId}")
+    suspend fun getProductById(@Path("productId") beerId: String): ProductDto
 
 }

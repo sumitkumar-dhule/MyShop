@@ -1,7 +1,7 @@
 package com.sample.data.di
 
 import com.sample.common.Constants
-import com.sample.data.remote.BeerApi
+import com.sample.data.remote.ShopApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,12 +16,12 @@ internal object DataModule {
 
     @Provides
     @Singleton
-    internal fun provideBeerApi(): BeerApi {
+    internal fun provideBeerApi(): ShopApi {
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(BeerApi::class.java)
+            .create(ShopApi::class.java)
     }
 
 }

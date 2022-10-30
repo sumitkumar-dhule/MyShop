@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sample.common.Constants
 import com.sample.common.Resource
-import com.sample.domain.use_case.GetBeerDetailsUseCase
+import com.sample.domain.use_case.GetProductDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BeerDetailViewModel @Inject constructor(
-    private val getBeerDetailsUseCase: GetBeerDetailsUseCase,
+    private val getProductDetailsUseCase: GetProductDetailsUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -23,13 +23,13 @@ class BeerDetailViewModel @Inject constructor(
     val state: StateFlow<ProductState> = _state
 
     init {
-        savedStateHandle.get<String>(Constants.PARAM_BEER_ID)?.let { coinId ->
+        savedStateHandle.get<String>(Constants.PARAM_PRODUCT_ID)?.let { coinId ->
             getBeer(coinId)
         }
     }
 
     fun getBeer(beerID: String) {
-        getBeerDetailsUseCase(beerID).onEach { result ->
+        getProductDetailsUseCase(beerID).onEach { result ->
             when (result) {
                 is Resource.Success -> {
                     _state.value = ProductState(beer = result.data)

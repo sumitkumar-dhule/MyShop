@@ -2,7 +2,7 @@ package com.sample.myshop.presentation.beer_list
 
 import com.sample.common.Resource
 import com.sample.domain.model.Beer
-import com.sample.domain.use_case.GetBeersUseCase
+import com.sample.domain.use_case.GetProductsUseCase
 import com.sample.myshop.BaseViewModelTest
 import com.sample.myshop.getDummyBeer
 import com.sample.myshop.runBlockingMainTest
@@ -24,18 +24,18 @@ class BeerListViewModelTest : BaseViewModelTest() {
     private lateinit var beerListViewModel: BeerListViewModel
 
     @Mock
-    lateinit var getBeersUseCase: GetBeersUseCase
+    lateinit var getProductsUseCase: GetProductsUseCase
 
     @Before
     fun setUp() {
-        beerListViewModel = BeerListViewModel(getBeersUseCase)
+        beerListViewModel = BeerListViewModel(getProductsUseCase)
     }
 
     @Test
     fun `Successful Result with List of Beers`() = runBlockingMainTest {
         val inputFlow: Flow<Resource<List<Beer>>> =
             flowOf(Resource.Success(listOf(getDummyBeer())))
-        whenever(getBeersUseCase.invoke()).thenReturn(inputFlow)
+        whenever(getProductsUseCase.invoke()).thenReturn(inputFlow)
         beerListViewModel.getBeers()
         assertEquals(getDummyBeer(), beerListViewModel.state.value.beers.first())
     }

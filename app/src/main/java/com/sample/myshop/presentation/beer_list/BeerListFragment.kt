@@ -75,7 +75,7 @@ class BeerListFragment : Fragment() {
             BranchEvent(BRANCH_STANDARD_EVENT.VIEW_ITEM).addContentItems(buo).logEvent(context)
 
             val bundle = Bundle().apply {
-                putString(Constants.PARAM_BEER_ID, it.id.toString())
+                putString(Constants.PARAM_PRODUCT_ID, it.id.toString())
             }
             findNavController().navigate(
                 R.id.action_FirstFragment_to_SecondFragment,

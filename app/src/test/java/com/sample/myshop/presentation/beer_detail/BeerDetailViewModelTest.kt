@@ -3,7 +3,7 @@ package com.sample.myshop.presentation.beer_detail
 import androidx.lifecycle.SavedStateHandle
 import com.sample.common.Resource
 import com.sample.domain.model.BeerDetails
-import com.sample.domain.use_case.GetBeerDetailsUseCase
+import com.sample.domain.use_case.GetProductDetailsUseCase
 import com.sample.myshop.BaseViewModelTest
 import com.sample.myshop.getDummyBeer
 import com.sample.myshop.getDummyBeerDetails
@@ -26,7 +26,7 @@ class BeerDetailViewModelTest : BaseViewModelTest() {
     private lateinit var beerDetailViewModel: BeerDetailViewModel
 
     @Mock
-    lateinit var beerDetailsUseCase: GetBeerDetailsUseCase
+    lateinit var beerDetailsUseCase: GetProductDetailsUseCase
 
     @Mock
     lateinit var savedStateHandle: SavedStateHandle
