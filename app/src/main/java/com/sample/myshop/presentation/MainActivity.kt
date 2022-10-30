@@ -67,7 +67,6 @@ class MainActivity : AppCompatActivity() {
 
             Log.i("BRANCH SDK", referringParams.toString())
 
-
             if (referringParams != null) {
 //                /// Retrieve deeplink keys from 'referringParams' and evaluate the values to determine where to route the user
 //                / if reInit() is called without this flag, you will see the following message:

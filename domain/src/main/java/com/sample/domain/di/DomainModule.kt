@@ -1,9 +1,9 @@
 package com.sample.domain.di
 
-import com.sample.domain.use_case.GetBeerDetailsUseCase
-import com.sample.domain.use_case.GetBeerDetailsUseCaseImpl
-import com.sample.domain.use_case.GetBeersUseCase
-import com.sample.domain.use_case.GetBeersUseCaseImpl
+import com.sample.domain.use_case.GetProductDetailsUseCase
+import com.sample.domain.use_case.GetProductDetailsUseCaseImpl
+import com.sample.domain.use_case.GetProductsUseCase
+import com.sample.domain.use_case.GetProductsUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,9 +15,9 @@ import javax.inject.Singleton
 internal abstract class DomainModule {
     @Binds
     @Singleton
-    internal abstract fun bindGetBeerDetailsUseCase(useCaseImpl: GetBeerDetailsUseCaseImpl): GetBeerDetailsUseCase
+    internal abstract fun bindGetBeerDetailsUseCase(useCaseImpl: GetProductDetailsUseCaseImpl): GetProductDetailsUseCase
 
     @Binds
     @Singleton
-    internal abstract fun bindGetBeersUseCase(useCaseImpl: GetBeersUseCaseImpl): GetBeersUseCase
+    internal abstract fun bindGetBeersUseCase(useCaseImpl: GetProductsUseCaseImpl): GetProductsUseCase
 }

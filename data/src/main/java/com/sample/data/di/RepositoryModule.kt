@@ -1,7 +1,7 @@
 package com.sample.data.di
 
-import com.sample.data.repository.BeerRepositoryImpl
-import com.sample.domain.repository.BeerRepository
+import com.sample.data.repository.ProductRepositoryImpl
+import com.sample.domain.repository.ProductRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,5 +14,5 @@ internal abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    internal abstract fun bindBeerRepository(beerRepository: BeerRepositoryImpl): BeerRepository
+    internal abstract fun bindBeerRepository(beerRepository: ProductRepositoryImpl): ProductRepository
 }
