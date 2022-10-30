@@ -1,4 +1,4 @@
-package com.sample.myshop.presentation.beer_detail
+package com.sample.myshop.presentation.product_detail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

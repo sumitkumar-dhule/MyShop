@@ -1,6 +1,5 @@
-package com.sample.myshop.presentation.beer_detail
+package com.sample.myshop.presentation.product_detail
 
-import com.sample.domain.model.BeerDetails
 import com.sample.domain.model.Product
 
 data class ProductState(

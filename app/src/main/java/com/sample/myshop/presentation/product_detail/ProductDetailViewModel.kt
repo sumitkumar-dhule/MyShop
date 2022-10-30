@@ -1,4 +1,4 @@
-package com.sample.myshop.presentation.beer_detail
+package com.sample.myshop.presentation.product_detail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
