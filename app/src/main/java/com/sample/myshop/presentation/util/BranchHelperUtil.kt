@@ -96,18 +96,17 @@ class BranchHelperUtil @Inject constructor(
             .setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
             .setContentMetadata(ContentMetadata().addCustomMetadata("product", product.title))
             .setContentMetadata(
-                ContentMetadata().setPrice(
-                    product.price.toDouble(),
-                    CurrencyType.USD
-                )
-            )
-            .setContentMetadata(
                 ContentMetadata().setRating(
                     product.rating.rate.toDouble(),
                     null,
                     5.0,
                     product.rating.count
-                )
+                ).setPrice(
+                    product.price.toDouble(),
+                    CurrencyType.USD
+                ).setProductCategory(
+                    ProductCategory.APPAREL_AND_ACCESSORIES
+                ).setProductCondition(ContentMetadata.CONDITION.EXCELLENT)
             )
     }
 
