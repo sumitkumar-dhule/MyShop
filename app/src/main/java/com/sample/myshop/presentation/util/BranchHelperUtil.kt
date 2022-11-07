@@ -83,6 +83,24 @@ class BranchHelperUtil @Inject constructor(
             .logEvent(context)
 
         actionToast(BRANCH_STANDARD_EVENT.ADD_TO_CART)
+
+
+       /*
+       //simulatePurchase
+        BranchEvent(BRANCH_STANDARD_EVENT.PURCHASE)
+            .setAffiliation("test_affiliation")
+            .setCustomerEventAlias("my_custom_alias")
+            .setCoupon("Coupon Code")
+            .setCurrency(CurrencyType.USD)
+            .setDescription("Customer Purchased the item")
+            .setShipping(1.0)
+            .setTax(tax)
+            .setTransactionID("11112222")
+            .setRevenue(product.price.toDouble() + tax)
+            .setSearchQuery("Test Search query")
+            .addContentItems(buo)
+            .logEvent(context)
+        */
     }
 
     fun getBranchUniversalObject(product: Product): BranchUniversalObject {
